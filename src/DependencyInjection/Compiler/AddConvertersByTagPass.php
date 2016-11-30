@@ -33,18 +33,19 @@ class AddConvertersByTagPass implements CompilerPassInterface
         $autoMapping = $container->getParameter(IvancheTypeConverterExtension::PARAMETER_AUTO_MAPPING);
         $strictMode = $container->getParameter(IvancheTypeConverterExtension::PARAMETER_STRICT);
         foreach ($taggedServices as $id => $service) {
-            $converter = $container->get($id);
+            $converter = $container->getDefinition($id);
 
-            if (!$converter instanceof ConverterInterface) {
+            $intefaces = class_implements($converter->getClass());
+            if (!key_exists(ConverterInterface::class, $intefaces)) {
                 throw new UnsupportedConverterException();
             }
 
-            if ($converter instanceof AutoMappingInterface) {
-                $converter->setAutoMapping($autoMapping);
-                $converter->setStrictMode($strictMode);
+            if (key_exists(AutoMappingInterface::class, $intefaces)) {
+                $converter->addMethodCall('setAutoMapping', [$autoMapping]);
+                $converter->addMethodCall('setStrictMode', [$strictMode]);
             }
 
-            $definition->addMethodCall('registerConverter', $converter);
+            $definition->addMethodCall('registerConverter', [$converter]);
         }
     }
 }
