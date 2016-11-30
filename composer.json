@@ -1,0 +1,20 @@
+{
+    "name": "ivanche/type-converter-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cherkasov Ivan",
+            "email": "ivanche.freelancer@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "ivanche/type-converter": "^0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ivanche\\TypeConverterBundle\\": "src/",
+            "Ivanche\\TypeConverterBundle\\Tests\\": "Tests/"
+        }
+    }
+}

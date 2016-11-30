@@ -1,0 +1,9 @@
+services:
+    ivanche.type_converter_bundle.converter_container:
+        class: Ivanche\ConvertersContainer
+        public: false
+
+    ivanche.type_converter_bundle.type_converter:
+        class: Ivanche\TypeConverter
+        arguments:
+            - '@ivanche.type_converter_bundle.converter_container'
